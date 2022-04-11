@@ -1,3 +1,4 @@
+const { findByIdAndDelete } = require('../models/book.js');
 const Book = require('../models/book.js');
 
 
@@ -12,6 +13,8 @@ exports.findAllBooks = (req, res)=> {
             })
         })
 }
+
+
 // GET SINGLE BOOK FOR :ID
 exports.findBook = (req, res)=> {
     let id = Number(req.params.id);
@@ -20,18 +23,40 @@ exports.findBook = (req, res)=> {
             res.json(foundBook);
         });
 };
+
+
 // CREATE BOOK FOR /
 exports.createBook = (req, res)=> {
     const newBook = req.body
-    console.log(newBook)
-    res.send('done')
+    Book.create(newBook)
+        .then(()=> {
+            console.log(newBook)
+            res.json({
+                status: 'success'
+            })
+        })
+        .catch(err => {
+            console.log('err', err)
+        })
 }
+
+
 // UPDATE BOOK FOR ID
 exports.updateBook = (req, res)=> {
-    res.send('PUT route reached');
+    res.send('update route reached')
+    // Book.findByIdAndUpdate(req.params.id, req.body)
+    //     .then(()=> {
+    //         res.json({
+    //             status: 'success',
+    //             message: 'Item updated'
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log('err', err)
+    //     })
 }
 // DEELTE BOOK FOR ID
 exports.deleteBook = (req, res) => {
-    res.send('DELETE route reached');
+    Book.findByIdAndDelete(req.params.id)
 }
 // END OF ROUTE HANDLERS
