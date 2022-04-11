@@ -1,6 +1,7 @@
 // CONFIG
 require('dotenv').config();
 // DEPENDENCIES
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -11,7 +12,10 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopolo
 
 // MIDDLEWARE
 app.use(express.json());
-
+app.use(cors());
+// app.get('/products/:id', function (req, res, next) {
+//     res.json({msg: 'This is CORS-enabled for all origins!'})
+//   })
 
 
 // START OF CONTROLLERS

@@ -12,6 +12,7 @@ exports.findAllBooks = (req, res)=> {
                 data: foundBooks
             })
         })
+        .catch(err=> console.log('err', err))
 }
 
 
@@ -21,7 +22,8 @@ exports.findBook = (req, res)=> {
     Book.findOne({ id: id })
         .then(foundBook => {
             res.json(foundBook);
-        });
+        })
+        .catch(err=> console.log('err', err))
 };
 
 
@@ -58,5 +60,12 @@ exports.updateBook = (req, res)=> {
 // DEELTE BOOK FOR ID
 exports.deleteBook = (req, res) => {
     Book.findByIdAndDelete(req.params.id)
+        .then(()=> {
+            res.json({
+                status: 'success',
+                message: 'Item deleted'
+            })
+        })
+        .catch(err=> console.log('err', err))
 }
 // END OF ROUTE HANDLERS
