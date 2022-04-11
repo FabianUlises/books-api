@@ -41,8 +41,31 @@ const Book = require('../models/book.js');
 //         }))
 // })
 
-books.get('/', (req, res)=> {
-    res.send('Welcome to the books route')
-})
+// ROUTE HANDLERS
+// GET ALL BOOKS FOR ROOT
+const findAllBooks = (req, res)=> {
+    Book.find({})
+        .then(foundBooks => {
+            res.json(foundBooks);
+        });
+}
+// GET SINGLE BOOK FOR :ID
+const findBook = (req, res)=> {
+    let id = Number(req.params.id);
+    Book.findOne({ id: id })
+        .then(foundBook => {
+            res.json(foundBook);
+        });
+};
+// END OF ROUTE HANDLERS
+
+
+
+
+// ROUTES
+books.get('/', findAllBooks);
+
+books.get('/:id', findBook);
+// END OF ROUTES
 
 module.exports = books;
