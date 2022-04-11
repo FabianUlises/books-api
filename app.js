@@ -1,6 +1,5 @@
 // DEPENDENCIES
 const express = require('express');
-const res = require('express/lib/response');
 const mongoose = require('mongoose');
 
 // CONFIG
@@ -9,10 +8,19 @@ const PORT = process.env.PORT;
 const app = express();
 
 // CONNECTING MONGOOSE
-mongoose.connect(process.env.MONGO_URI, ()=> console.log(`mongoose connect at: ${process.env.MONGO_URI}`));
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true}, ()=> console.log(process.env.MONGO_URI));
 
 
-// ROUTE HANDLERS
+
+// MIDDLEWARE
+app.use(express.json());
+
+
+
+
+
+
+// ROUTE HANDLERS 
 // ROOT
 const root = (req, res)=> {
     res.send('Welcome!');
@@ -27,7 +35,10 @@ const catchAll = (req, res)=> {
 
 
 
-// START OF ROUTES
+// START OF ROUTES AND CONTROLLER
+// BOOKS CONTROLLER
+const books_controller = require('./controllers/books_controller.js');
+app.use('/books', books_controller);
 // ROOT
 app.get('/', root);
 
