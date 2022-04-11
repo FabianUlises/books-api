@@ -1,7 +1,27 @@
 // DEPENDENCIES
 const express = require('express');
 const books = express.Router();
-const Book = require('../models/book.js');
+const books_Route = require('./../routes/bookRoutes.js');
+
+// ROUTES
+// /
+books
+    .route('/')
+    .get(books_Route.findAllBooks)
+    .post(books_Route.createBook)
+// :id
+books
+    .route('/:id')
+    .get(books_Route.findBook)
+    .patch(books_Route.updateBook)
+    .delete(books_Route.deleteBook)
+// END OF ROUTES
+
+
+
+
+
+
 
     // SAMPLE SEED DATA
 // books.get('/seed', (req, res) => {
@@ -15,7 +35,7 @@ const Book = require('../models/book.js');
 //       {
 //         "title": "Tess the Wonder Dog",
 //         "description": "The tale of a dog who gets super powers",
-//         "year": 2007,
+//         "year": 2007,                    
 //         "quantity": 3,
 //         "imageURL": "https://imgur.com/cEJmGKV.jpg"
 //       },
@@ -41,31 +61,20 @@ const Book = require('../models/book.js');
 //         }))
 // })
 
-// ROUTE HANDLERS
-// GET ALL BOOKS FOR ROOT
-const findAllBooks = (req, res)=> {
-    Book.find({})
-        .then(foundBooks => {
-            res.json(foundBooks);
-        });
-}
-// GET SINGLE BOOK FOR :ID
-const findBook = (req, res)=> {
-    let id = Number(req.params.id);
-    Book.findOne({ id: id })
-        .then(foundBook => {
-            res.json(foundBook);
-        });
-};
-// END OF ROUTE HANDLERS
 
 
 
-
-// ROUTES
-books.get('/', findAllBooks);
-
-books.get('/:id', findBook);
+// books.get('/', findAllBooks);
+// GET ID
+// books.get('/:id', findBook);
+// POST /
+// books.post('/', createBook);
+// PATCH id
+// books.patch('/:id', updateBook);
+// DELETE id
+// books.delete('/:id', deleteBook);
 // END OF ROUTES
 
+
+// EXPORTING MODULE
 module.exports = books;
