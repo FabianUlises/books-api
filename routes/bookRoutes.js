@@ -67,6 +67,6 @@ exports.deleteBook = (req, res) => {
                 message: 'Item deleted'
             })
         })
-        .catch(err=> console.log('err', err))
+        .catch(err => console.log('err', err))
 }
 // END OF ROUTE HANDLERS
