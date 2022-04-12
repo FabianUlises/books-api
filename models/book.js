@@ -13,5 +13,17 @@ const booksSchema = new Schema ({
 
 // BOOKS MODEL
 const Book = mongoose.model('Book', booksSchema);
+// const testBook = new Book({
+//     title: 'test_book_1',
+//     year: 2022
+// });
+// testBook
+//     .save()
+//     .then(doc => {
+//         console.log(doc)
+//     })
+//     .catch(err => {
+//         console.log('errlor :', err)
+//     });
 // EXPORTING MODULE
 module.exports = Book;

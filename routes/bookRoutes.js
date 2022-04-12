@@ -34,7 +34,8 @@ exports.createBook = (req, res)=> {
         .then(()=> {
             console.log(newBook)
             res.json({
-                status: 'success'
+                status: 'success',
+                data: newBook
             })
         })
         .catch(err => {
@@ -45,17 +46,17 @@ exports.createBook = (req, res)=> {
 
 // UPDATE BOOK FOR ID
 exports.updateBook = (req, res)=> {
-    res.send('update route reached')
-    // Book.findByIdAndUpdate(req.params.id, req.body)
-    //     .then(()=> {
-    //         res.json({
-    //             status: 'success',
-    //             message: 'Item updated'
-    //         })
-    //     })
-    //     .catch(err => {
-    //         console.log('err', err)
-    //     })
+    // res.send('update route reached')
+    Book.findByIdAndUpdate(req.params.id, req.body,{new: true})
+        .then(()=> {
+            res.json({
+                status: 'success',
+                message: 'Item updated'
+            })
+        })
+        .catch(err => {
+            console.log('err', err)
+        })
 }
 // DEELTE BOOK FOR ID
 exports.deleteBook = (req, res) => {
